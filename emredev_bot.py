@@ -17,7 +17,7 @@ def echo(u, c):
 
     if 'emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
-    
+
     if 'teo' in msg:
         emredev.send_message(cid, "@teomandev ist so ein Lappen :P")
 
