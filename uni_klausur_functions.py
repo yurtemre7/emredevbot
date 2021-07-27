@@ -18,7 +18,7 @@ def look(emredev):
         resp = ''
         try:
             resp = r.get(
-                "https://isis.tu-berlin.de/mod/quiz/view.php?id=1144126",
+                "https://isis.tu-berlin.de/mod/quiz/view.php?id=1152540",
                 headers=getHeaders())
         except:
             emredev.send_message(
@@ -28,18 +28,20 @@ def look(emredev):
             return
 
         txt = resp.text
-        print(len(txt.split('Nicht erlaubt')))
-        if len(txt.split('Nicht erlaubt')) < 2:
+        print(len(txt.split('Bisher nicht bewertet/')))
+        if len(txt.split('Bisher nicht bewertet/')) < 2:
+            note = txt.split('Ihre Gesamtbewertung für diesen Test')[
+                1].split('/80,00')[0]
             emredev.send_message(
                 emre_telegram_id,
-                "Es gibt eine Note!\nHier der Link:\n\nhttps://isis.tu-berlin.de/mod/quiz/view.php?id=1144126"
+                f"Es gibt eine Note!\n\nDu hast: {note}/80,00 Punkten.\nHier der Link:\n\nhttps://isis.tu-berlin.de/mod/quiz/view.php?id=1152540"
             )
             break
 
         print("Noch nicht..")
 
-        sleep(15)
+        sleep(60)
     emredev.send_message(
         emre_telegram_id,
-        "Es gibt eine Note!\nHier der Link:\n\nhttps://isis.tu-berlin.de/mod/quiz/view.php?id=1144126"
+        "Es gibt eine Note!\nHier der Link:\n\nhttps://isis.tu-berlin.de/mod/quiz/view.php?id=1152540"
     )

@@ -60,8 +60,8 @@ def main():
     dp.add_handler(MessageHandler(Filters.all, echo))
     updater.start_polling()
     emredev.send_message(emre_telegram_id, 'emredev.py startet!')
-    emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
-    # Thread(target=kf.look, args=(emredev,)).start()
+    #emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
+    Thread(target=kf.look, args=(emredev,)).start()
 
 
 if __name__ == '__main__':
