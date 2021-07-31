@@ -30,7 +30,7 @@ def look(emredev):
         txt = resp.text
         print(len(txt.split('Bisher nicht bewertet/')))
         if len(txt.split('Bisher nicht bewertet/')) < 2:
-            note = txt.split('Ihre Gesamtbewertung für diesen Test')[
+            note = txt.split('Ihre Gesamtbewertung für diesen Test:')[
                 1].split('/80,00')[0]
             emredev.send_message(
                 emre_telegram_id,
