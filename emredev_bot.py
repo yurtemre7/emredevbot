@@ -22,7 +22,14 @@ def echo(u, c):
         f.write(f'{first_name} aka @{username} ({cid}): "{msg}"\n')
 
     if msg == '/start':
-        emredev.send_message(cid, 'Hi! Ich bin ein TU Berlin Bot made by @emredev, der dir in vieles einfacher macht. Damit Fehler im Laufe der Entwicklung besser nachverfolgt werden können, werden alle deine Nachrichten mit diesem Bot 7 Tage lang zwischen gespeichert.')
+        intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
+        help = 'Schreibe /help um alle Befehle sehen zu können.\n'
+        daten = 'Schreibe /daten, falls du weitere Infos zum Bot wissen möchtest.\n'
+        emredev.send_message(cid, intro + help + daten)
+    if msg == '/daten':
+        text1 = 'Damit Fehler im Laufe der Entwicklung besser nachverfolgt werden können, werden alle Nachrichten mit diesem Bot mind. 7 Tage lang zwischengespeichert.\n\n'
+        text2 = 'Du kannst jederzeit @emredev anschreiben und verlangen, dass Deine Daten sofort gelöscht werden sollen.'
+        emredev.send_message(cid, text1 + text2)
 
     if 'emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
@@ -30,13 +37,9 @@ def echo(u, c):
     if 'teo' in msg:
         emredev.send_message(cid, "@teomandev ist so ein Lappen :P")
 
-    if 'isda' in msg:
-        emredev.send_message(
-            cid, "Ich halte ausschau nach der ISDA Note von Emre!")
-
     if '/help' in msg:
         emredev.send_message(
-            cid, "Hier sind alle meine Befehle: /help, /isda, /emre, /teo, /minimize, /cyk und /crs")
+            cid, "Hier sind alle meine Befehle: /help, /daten, /emre, /teo, /minimize, /cyk und /crs")
     # minimize 5
     if '/minimize' in msg:
         # parse string "minimize 5" to int 5
