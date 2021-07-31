@@ -39,7 +39,7 @@ def echo(u, c):
         emredev.send_message(cid, "@teomandev ist so ein Lappen :P")
 
     if 'log' in msg and cid == emre_telegram_id:
-        emredev.send_document(cid, 'cache/log.txt')
+        emredev.send_document(cid, open('cache/log.txt', 'rb'))
 
     if '/help' in msg:
         emredev.send_message(
