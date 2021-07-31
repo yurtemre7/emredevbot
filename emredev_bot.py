@@ -3,6 +3,7 @@ from telegram import Bot
 from threading import Thread
 from keys import TELEGRAM_BOT_API_KEY as api, emre_telegram_id, teoman_telegram_id
 import forsa as fs
+import ds
 import uni_klausur_functions as kf
 
 
@@ -14,8 +15,14 @@ emredev = Bot(api)
 def echo(u, c):
     msg = u.message.text.lower()
     cid = u.message.chat.id
+    username = u.message.chat.username
+    first_name = u.message.chat.first_name
 
-    print(cid)
+    with open('cache/log.txt', 'a+') as f:
+        f.write(f'{first_name} aka @{username} ({cid}): "{msg}"\n')
+
+    if msg == '/start':
+        emredev.send_message(cid, 'Hi! Ich bin ein TU Berlin Bot made by @emredev, der dir in vieles einfacher macht. Damit Fehler im Laufe der Entwicklung besser nachverfolgt werden können, werden alle deine Nachrichten mit diesem Bot 7 Tage lang zwischen gespeichert.')
 
     if 'emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
@@ -29,7 +36,7 @@ def echo(u, c):
 
     if '/help' in msg:
         emredev.send_message(
-            cid, "Hier sind alle meine Befehle: /help, /isda, /emre, /teo, /minimize und /cyk")
+            cid, "Hier sind alle meine Befehle: /help, /isda, /emre, /teo, /minimize, /cyk und /crs")
     # minimize 5
     if '/minimize' in msg:
         # parse string "minimize 5" to int 5
@@ -52,6 +59,26 @@ def echo(u, c):
         else:
             print(e[1].split("'")[0])
             fs.maxim_cyk(emredev, i[1], e[1].split("'")[0], cid)
+    if '/crs' in msg:
+        # /crs 2,3 3,5 2,7
+        i = msg.split(' ')
+        if len(i) < 2:
+            emredev.send_photo(
+                cid, photo='https://cdn.discordapp.com/attachments/319066984748941312/871069126402142298/besteErklarung.jpg')
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /crs 2,3 3,5 2,7")
+            return
+        a_s = []
+        m_s = []
+        firstTime = True
+        for e in i:
+            if firstTime:
+                firstTime = False
+                continue
+            bndl = e.split(',')
+            a_s.append(int(bndl[0]))
+            m_s.append(int(bndl[1]))
+        ds.crs(emredev, cid, a_s, m_s)
 
 
 def main():
@@ -60,8 +87,8 @@ def main():
     dp.add_handler(MessageHandler(Filters.all, echo))
     updater.start_polling()
     emredev.send_message(emre_telegram_id, 'emredev.py startet!')
-    #emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
-    Thread(target=kf.look, args=(emredev,)).start()
+    # emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
+    # Thread(target=kf.look, args=(emredev,)).start()
 
 
 if __name__ == '__main__':
