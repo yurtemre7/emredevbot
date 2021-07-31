@@ -2,6 +2,7 @@ from telegram.ext import Updater, MessageHandler, Filters
 from telegram import Bot
 from threading import Thread
 from time import sleep
+from datetime import datetime
 from keys import TELEGRAM_BOT_API_KEY as api, emre_telegram_id, teoman_telegram_id
 import forsa as fs
 import ds
@@ -19,8 +20,17 @@ def echo(u, c):
     username = u.message.chat.username
     first_name = u.message.chat.first_name
 
+    # current time
+    now = datetime.now()
+    # convert time to german time
+    now_german = now.strftime('%d.%m.%Y %H:%M:%S')
+    
+
     with open('cache/log.txt', 'a+') as f:
-        f.write(f'{first_name} aka @{username} ({cid}): "{msg}"\n')
+        # current time of day from time module
+
+    
+        f.write(f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
 
     if msg == '/start':
         intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
