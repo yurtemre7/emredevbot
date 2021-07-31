@@ -1,6 +1,7 @@
 from telegram.ext import Updater, MessageHandler, Filters
 from telegram import Bot
 from threading import Thread
+from time import sleep
 from keys import TELEGRAM_BOT_API_KEY as api, emre_telegram_id, teoman_telegram_id
 import forsa as fs
 import ds
@@ -36,6 +37,9 @@ def echo(u, c):
 
     if 'teo' in msg:
         emredev.send_message(cid, "@teomandev ist so ein Lappen :P")
+
+    if 'log' in msg and cid == emre_telegram_id:
+        emredev.send_document(cid, 'cache/log.txt')
 
     if '/help' in msg:
         emredev.send_message(
@@ -84,6 +88,14 @@ def echo(u, c):
         ds.crs(emredev, cid, a_s, m_s)
 
 
+def delete_in_7_days(emredev):
+    sleep(7*24*60*60)
+    emredev.send_message(emre_telegram_id, 'Dein Log wurde gelöscht.')
+    with open('cache/log.txt', 'w') as f:
+        f.write('')
+
+
+
 def main():
     updater = Updater(api, use_context=True)
     dp = updater.dispatcher
@@ -92,6 +104,8 @@ def main():
     emredev.send_message(emre_telegram_id, 'emredev.py startet!')
     # emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
     # Thread(target=kf.look, args=(emredev,)).start()
+    Thread(target=delete_in_7_days, args=(emredev,)).start()
+
 
 
 if __name__ == '__main__':
