@@ -45,15 +45,12 @@ def echo(u, c):
     if 'emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
 
-    if 'teo' in msg:
-        emredev.send_message(cid, "@teomandev ist so ein Lappen :P")
-
     if 'log' in msg and cid == emre_telegram_id:
         emredev.send_document(cid, open('cache/log.txt', 'rb'))
 
     if '/help' in msg:
         emredev.send_message(
-            cid, "Hier sind alle meine Befehle: /help, /daten, /emre, /teo, /minimize, /cyk und /crs")
+            cid, "Hier sind alle meine Befehle: /help, /daten, /emre, /minimize, /cyk und /crs")
     # minimize 5
     if '/minimize' in msg:
         # parse string "minimize 5" to int 5
