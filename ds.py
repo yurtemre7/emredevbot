@@ -17,6 +17,7 @@ def crs(emredev, cid, a_s, m_s,):
     try:
         y_s = [pow(M_s[i], -1, m_s[i]) for i in range(len(M_s))]
     except:
+        # print(M_s, m_s)
         emredev.send_message(cid, 'Deine Eingabe ist nicht lösbar.')
         return;
      
