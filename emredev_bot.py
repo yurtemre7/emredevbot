@@ -15,10 +15,24 @@ emredev = Bot(api)
 
 
 def echo(u, c):
-    msg = u.message.text.lower()
+    msg = u.message.text
+    if msg:
+        msg = msg.lower()
     cid = u.message.chat.id
     username = u.message.chat.username
     first_name = u.message.chat.first_name
+    is_group = u.message.chat.title is not None
+
+    chat_member = u.message.new_chat_members
+
+    if len(chat_member) > 0:
+        for member in chat_member:
+            if str(member.username) in "emredevbot":
+                emredev.sendMessage(
+                    cid, 'Moin, ich bin der krasse Bot! Schreibt "/help" um all meine Befehle zu erfahren!\n\nPS: Gern auch privat! 😉')
+
+    if not msg:
+        return
 
     # current time
     now = datetime.now()
@@ -26,7 +40,17 @@ def echo(u, c):
     now_german = now.strftime('%d.%m.%Y %H:%M:%S')
 
     with open('cache/log.txt', 'a+') as f:
-        f.write(f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
+        if is_group:
+            first_name = u.message.from_user.first_name
+            username = u.message.from_user.username
+            title = u.message.chat.title
+            f.write(
+                f'{now_german} - {first_name} aka @{username} (Group: "{title}" {cid}): "{msg}"\n')
+        else:
+            f.write(
+                f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
+    
+    
 
     if msg == '/start':
         intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
@@ -37,16 +61,25 @@ def echo(u, c):
         text1 = 'Damit Fehler im Laufe der Entwicklung besser nachverfolgt werden können, werden alle Nachrichten mit diesem Bot mind. 7 Tage lang zwischengespeichert.\n\n'
         text2 = 'Du kannst jederzeit @emredev anschreiben und verlangen, dass Deine Daten sofort gelöscht werden sollen.'
         emredev.send_message(cid, text1 + text2)
+    
+    if msg == '/gruppe':
+        emredev.send_message(cid, 'Du kannst mich gern in eine Gruppe hinzufügen. Um vollständig zu funktionieren, gebe mir bitte Admin.\n\nBedenke zusätzlich noch: /daten')
 
-    if 'emre' in msg:
+    if '/emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
 
-    if 'log' in msg and cid == emre_telegram_id:
+    if 'java' in msg:
+        emredev.send_message(cid, 'Manfred? 😊')
+
+    if 'ente' in msg:
+        emredev.send_message(cid, 'Quack! 🦆')
+
+    if '/log' in msg and cid == emre_telegram_id:
         emredev.send_document(cid, open('cache/log.txt', 'rb'))
 
     if '/help' in msg:
         emredev.send_message(
-            cid, "Hier sind alle meine Befehle: /help, /daten, /emre, /minimize, /cyk und /crs")
+            cid, "Hier sind alle meine Befehle: /help, /daten, /grupe, /emre, /minimize, /cyk, /crs und /prf")
     # minimize 5
     if '/minimize' in msg:
         # parse string "minimize 5" to int 5
