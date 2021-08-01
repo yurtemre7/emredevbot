@@ -61,8 +61,9 @@ def echo(u, c):
 
     elif '/daten' in msg:
         text1 = 'Damit Fehler im Laufe der Entwicklung besser nachverfolgt werden können, werden alle Nachrichten mit diesem Bot mind. 7 Tage lang zwischengespeichert.\n\n'
-        text2 = 'Du kannst jederzeit @emredev anschreiben und verlangen, dass Deine Daten sofort gelöscht werden sollen.'
-        emredev.send_message(cid, text1 + text2)
+        text2 = 'Du kannst jederzeit @emredev anschreiben und verlangen, dass Deine Daten sofort gelöscht werden sollen.\n'
+        text3 = 'Den Source-Code von mir, findest Du auf Github: https://github.com/yurtemre7/pythonprojs'
+        emredev.send_message(cid, text1 + text2 + text3)
 
     elif '/gruppe' in msg:
         emredev.send_message(
