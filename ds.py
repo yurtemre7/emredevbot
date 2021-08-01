@@ -19,8 +19,7 @@ def crs(emredev, cid, a_s, m_s,):
     except:
         # print(M_s, m_s)
         emredev.send_message(cid, 'Deine Eingabe ist nicht lösbar.')
-        return;
-     
+        return
 
     for i in range(len(y_s)):
         if i+1 == len(y_s):
@@ -55,3 +54,50 @@ def crs(emredev, cid, a_s, m_s,):
         ant += f'Also ist {sol} die Lösung des obigen Systems.\n'
 
     emredev.send_message(cid, ant)
+
+
+def tschia_phi(emredev, cid, number):
+    # eulers phi function of prime factorization
+    # n = prime factors
+
+    emredev.send_message(
+        cid, "Berechnet phi(n) für natürliche Zahl n mit Rechenweg by Tschia")
+    copy = number
+    # calculate prime factors idiotisch :D, ja ich weiß, ich geh jede zahl durch
+
+    primefactors = {}
+    divisor = 2
+    while(number != 1):
+        if(number % divisor == 0):
+            primefactors[divisor] = 0
+            while(number % divisor == 0):
+                primefactors[divisor] += 1
+                number /= divisor
+        divisor += 1
+
+    primefactorsSTRING = f"Primfaktorzerlegung:\n{copy} ="
+    solsf = ''
+    for p, e in primefactors.items():
+        primefactorsSTRING += f" * {p}^{e}"
+    solsf += primefactorsSTRING.replace(" *", "", 1)
+
+    emredev.send_message(cid, solsf)
+
+    # calculate phi(n)
+    phi = 1
+    sols = ''
+    sols += f"Berechnung von phi({copy}):\n"
+    phiSTRING1 = "= "
+    phiSTRING2 = "= "
+    phiSTRING3 = "= "
+    for p, e in primefactors.items():
+        phi *= (p-1)*p**(e-1)
+        phiSTRING1 += f" * (({p}-1) * {p}^({e}-1))"
+        phiSTRING2 += f" * ({p-1} * {p}^{e-1})"
+        phiSTRING3 += f" * {(p-1)*p**(e-1)}"
+
+    sols += phiSTRING1.replace(" * ", "", 1) + '\n'
+    sols += phiSTRING2.replace(" * ", "", 1) + '\n'
+    sols += phiSTRING3.replace(" * ", "", 1) + '\n'
+
+    emredev.send_message(cid, f"{sols}= {phi}")
