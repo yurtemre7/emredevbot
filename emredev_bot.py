@@ -24,12 +24,8 @@ def echo(u, c):
     now = datetime.now()
     # convert time to german time
     now_german = now.strftime('%d.%m.%Y %H:%M:%S')
-    
 
     with open('cache/log.txt', 'a+') as f:
-        # current time of day from time module
-
-    
         f.write(f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
 
     if msg == '/start':
@@ -102,7 +98,6 @@ def delete_in_7_days(emredev):
         f.write('')
 
 
-
 def main():
     updater = Updater(api, use_context=True)
     dp = updater.dispatcher
@@ -112,7 +107,6 @@ def main():
     # emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
     # Thread(target=kf.look, args=(emredev,)).start()
     Thread(target=delete_in_7_days, args=(emredev,)).start()
-
 
 
 if __name__ == '__main__':
