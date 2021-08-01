@@ -82,8 +82,32 @@ def echo(u, c):
         emredev.send_document(cid, open('cache/log.txt', 'rb'))
 
     elif '/help' in msg:
-        emredev.send_message(
-            cid, "Hier sind alle meine Befehle: /help, /daten, /gruppe, /emre, /minimize, /cyk, /crs und /prf")
+        i = msg.split(' ')
+        if len(i) > 1:
+            cmd_helps = {
+                'minimize': 'Minimiert einen DFA\nz.B.: /minimize 7 a,b q0 q3\n\nErklärung:\n7 = größter Index der Zustände zb q7 => 7\na,b = Eingabealphabet\nq0 = Startzustand / q0,q1 Startzustände\nq3 = Endzustand / q3,q5 Endzustände\n',
+                'gruppe': 'Information zu Gruppen.',
+                'emre': 'Information zum Erfinder.',
+                'cyk': """CYK-Algorithmus von CNF-Grammatiken\nz.B.: /cyk baaba
+                        'S -> AB | BC\nA -> BA | a | b\nB -> CC | b\nC -> AB | a'""",
+                'crs': 'Chinesischer Restsatz\nz.B.: /crs 2,3 3,5 2,7',
+                'prf': 'Primfaktorzerlegung und die Eulersche Phi-Funtion\nz.B.: /prf 10'
+
+            }
+            command = i[1]
+
+            if command not in cmd_helps:
+                emredev.send_message(cid, 'Keine Erklärung.. 🙁')
+                return
+
+            if command == 'crs':
+                emredev.send_photo(
+                    cid, photo='https://cdn.discordapp.com/attachments/319066984748941312/871069126402142298/besteErklarung.jpg')
+            emredev.send_message(
+                cid, cmd_helps[command])
+        else:
+            emredev.send_message(
+                cid, 'Hier sind alle meine Befehle: /help, /daten, /gruppe, /emre, /minimize, /cyk, /crs und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
     # minimize 5
     elif '/minimize' in msg:
         # parse string "minimize 5" to int 5
