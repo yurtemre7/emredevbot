@@ -90,6 +90,14 @@ def echo(u, c):
             m_s.append(int(bndl[1]))
         ds.crs(emredev, cid, a_s, m_s)
 
+    if '/prf' in msg:
+        i = msg.split(' ')
+        if len(i) < 2:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /prf 10")
+        else:
+            ds.tschia_phi(emredev, cid, int(i[1]))
+
 
 def delete_in_7_days(emredev):
     sleep(7*24*60*60)
