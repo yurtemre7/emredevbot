@@ -66,7 +66,7 @@ def echo(u, c):
 
     elif '/gruppe' in msg:
         emredev.send_message(
-            cid, 'Du kannst mich gern in eine Gruppe hinzufügen. Um vollständig zu funktionieren, gebe mir bitte Admin.\n\nBedenke zusätzlich noch: /daten')
+            cid, 'Du kannst mich gern in eine Gruppe hinzufügen.\n\nBedenke zusätzlich noch: /daten')
 
     elif '/emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
@@ -82,7 +82,7 @@ def echo(u, c):
 
     elif '/help' in msg:
         emredev.send_message(
-            cid, "Hier sind alle meine Befehle: /help, /daten, /grupe, /emre, /minimize, /cyk, /crs und /prf")
+            cid, "Hier sind alle meine Befehle: /help, /daten, /gruppe, /emre, /minimize, /cyk, /crs und /prf")
     # minimize 5
     elif '/minimize' in msg:
         # parse string "minimize 5" to int 5
