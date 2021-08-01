@@ -13,7 +13,13 @@ def crs(emredev, cid, a_s, m_s,):
 
     # find M1, M2, M3 and their respective inverses
     M_s = [int(M / i) for i in m_s]
-    y_s = [pow(M_s[i], -1, m_s[i]) for i in range(len(M_s))]
+    y_s = None
+    try:
+        y_s = [pow(M_s[i], -1, m_s[i]) for i in range(len(M_s))]
+    except:
+        emredev.send_message(cid, 'Deine Eingabe ist nicht lösbar.')
+        return;
+     
 
     for i in range(len(y_s)):
         if i+1 == len(y_s):
