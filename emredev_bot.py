@@ -30,7 +30,10 @@ def echo(u, c):
             if str(member.username) in "emredevbot":
                 emredev.sendMessage(
                     cid, 'Moin, ich bin der krasse Bot! Schreibt "/help" um all meine Befehle zu erfahren!\n\nPS: Gern auch privat! 😉')
-
+            else:
+                title = u.message.chat.title
+                emredev.sendMessage(
+                    cid, f'Moin {member.first_name},\n\nWillkommen in der Gruppe "{title}"! 😉')
     if not msg:
         return
 
@@ -49,8 +52,6 @@ def echo(u, c):
         else:
             f.write(
                 f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
-    
-    
 
     if msg == '/start':
         intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
@@ -61,9 +62,10 @@ def echo(u, c):
         text1 = 'Damit Fehler im Laufe der Entwicklung besser nachverfolgt werden können, werden alle Nachrichten mit diesem Bot mind. 7 Tage lang zwischengespeichert.\n\n'
         text2 = 'Du kannst jederzeit @emredev anschreiben und verlangen, dass Deine Daten sofort gelöscht werden sollen.'
         emredev.send_message(cid, text1 + text2)
-    
+
     if msg == '/gruppe':
-        emredev.send_message(cid, 'Du kannst mich gern in eine Gruppe hinzufügen. Um vollständig zu funktionieren, gebe mir bitte Admin.\n\nBedenke zusätzlich noch: /daten')
+        emredev.send_message(
+            cid, 'Du kannst mich gern in eine Gruppe hinzufügen. Um vollständig zu funktionieren, gebe mir bitte Admin.\n\nBedenke zusätzlich noch: /daten')
 
     if '/emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
