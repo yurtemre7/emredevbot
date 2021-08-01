@@ -67,7 +67,7 @@ def echo(u, c):
                 cid, """Syntax-Error. z.B.: /cyk baaba
                         'S -> AB | BC\nA -> BA | a | b\nB -> CC | b\nC -> AB | a'""")
         else:
-            print(e[1].split("'")[0])
+            # print(e[1].split("'")[0])
             fs.maxim_cyk(emredev, i[1], e[1].split("'")[0], cid)
     if '/crs' in msg:
         # /crs 2,3 3,5 2,7

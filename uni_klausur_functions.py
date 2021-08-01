@@ -28,7 +28,7 @@ def look(emredev):
             return
 
         txt = resp.text
-        print(len(txt.split('Bisher nicht bewertet/')))
+        # print(len(txt.split('Bisher nicht bewertet/')))
         if len(txt.split('Bisher nicht bewertet/')) < 2:
             note = txt.split('Ihre Gesamtbewertung für diesen Test:')[
                 1].split('/80,00')[0]
@@ -38,7 +38,7 @@ def look(emredev):
             )
             break
 
-        print("Noch nicht..")
+        # print("Noch nicht..")
 
         sleep(60)
     emredev.send_message(
