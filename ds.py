@@ -68,20 +68,14 @@ def tschia_phi(emredev, cid, number):
     copy = number
     # calculate prime factors idiotisch :D, ja ich weiß, ich geh jede zahl durch
 
-    primefactors = {}
-    divisor = 2
-    while(number != 1):
-        if(number % divisor == 0):
-            primefactors[divisor] = 0
-            while(number % divisor == 0):
-                primefactors[divisor] += 1
-                number /= divisor
-        divisor += 1
-
     primefactorsSTRING = f"Primfaktorzerlegung:\n{copy} ="
+    factors = factorint(number)
+    factors1 = list(factors.keys())
+    factors2 = list(factors.values())
     solsf = ''
-    for p, e in primefactors.items():
-        primefactorsSTRING += f" * {p}^{e}"
+    for i in range(len(factors1)):
+        primefactorsSTRING += f' * {factors1[i]}^{factors2[i]}'
+
     solsf += primefactorsSTRING.replace(" *", "", 1)
 
     emredev.send_message(cid, solsf)
@@ -93,7 +87,7 @@ def tschia_phi(emredev, cid, number):
     phiSTRING1 = "= "
     phiSTRING2 = "= "
     phiSTRING3 = "= "
-    for p, e in primefactors.items():
+    for p, e in factors.items():
         phi *= (p-1)*p**(e-1)
         phiSTRING1 += f" * (({p}-1) * {p}^({e}-1))"
         phiSTRING2 += f" * ({p-1} * {p}^{e-1})"
