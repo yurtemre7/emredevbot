@@ -1,3 +1,6 @@
+from sympy import factorint, mod_inverse
+
+
 def crs(emredev, cid, a_s, m_s,):
     M = 1
 
@@ -101,3 +104,52 @@ def tschia_phi(emredev, cid, number):
     sols += phiSTRING3.replace(" * ", "", 1) + '\n'
 
     emredev.send_message(cid, f"{sols}= {phi}")
+
+
+# euclidean algorithm inverse
+def euk(emredev, cid, a, b):
+    sol = None
+    try:
+        sol = pow(a, -1, b)
+        emredev.send_message(cid, sol)
+    except:
+        emredev.send_message(cid, "Die Zahl ist nicht invertierbar.")
+
+
+def p_euk(emredev, cid, a, b):
+    sol = None
+    try:
+        sol = pow(a, -1, b)
+        return sol
+    except:
+        return -1
+
+
+def rsa_pkey(emredev, cid, p, q, e):
+    phi = (p-1)*(q-1)
+    # get private key
+    d = p_euk(emredev, cid, e, phi)
+    if d == -1:
+        # return error message
+        emredev.send_message(
+            cid, "Privater Schlüssel kann nicht ermittelt werden.")
+    # decrypt
+    emredev.send_message(cid, f'Der Private Schlüssel ist: {d}')
+
+
+def rsa_decrypt(emredev, cid, n, e, c):
+    # decrypt
+    factors = factorint(n)
+    factors = list(factors.keys())
+    p = factors[0]
+    q = factors[1]
+
+    phi = (p-1)*(q-1)
+    d = mod_inverse(e, phi)
+    if d == -1:
+        # return error message
+        emredev.send_message(
+            cid, "Privater Schlüssel kann nicht ermittelt werden.")
+    m = pow(c, d, n)
+    # return decrypted message
+    emredev.send_message(cid, f'Der verschlüsselte Text ist: {m}')
