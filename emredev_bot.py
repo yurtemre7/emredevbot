@@ -12,7 +12,7 @@ import uni_klausur_functions as kf
 emredev = Bot(api)
 
 
-def cmd_handling(msg, cid):
+def cmd_handling(msg, cid, msg_orig):
     if msg == '/start':
         intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
         help = 'Schreibe /help um alle Befehle sehen zu können.\n'
@@ -40,6 +40,19 @@ def cmd_handling(msg, cid):
 
     elif '/log' in msg and cid == emre_telegram_id:
         emredev.send_document(cid, open('cache/log.txt', 'rb'))
+
+    elif '/sendall' in msg and cid == emre_telegram_id:
+        i = msg_orig.split(' ')
+        txt = ' '
+        txt = txt.join(i[1:])
+
+        with open('cache/unique_ids.txt', 'r+') as f:
+            # read file to list
+            unique_ids = f.read().splitlines()
+            print(unique_ids)
+            # check if user is already in list
+            for id in unique_ids:
+                emredev.send_message(id, txt)
 
     elif '/help' in msg:
         i = msg.split(' ')
@@ -164,6 +177,7 @@ def welcome(chat_member, cid, title):
 
 def echo_thread(u, c):
     msg = u.message.text
+    msg_orig = u.message.text
     if msg:
         msg = msg.lower()
     cid = u.message.chat.id
@@ -184,18 +198,25 @@ def echo_thread(u, c):
     # convert time to german time
     now_german = now.strftime('%d.%m.%Y %H:%M:%S')
 
+    with open('cache/unique_ids.txt', 'r+') as f:
+        # read file to list
+        unique_ids = list(f.read().splitlines())
+        # check if user is already in list
+        if str(cid) not in unique_ids and not is_group:
+            f.write(f'{cid}\n')
+
     with open('cache/log.txt', 'a+') as f:
         if is_group:
             first_name = u.message.from_user.first_name
             username = u.message.from_user.username
             title = u.message.chat.title
             f.write(
-                f'{now_german} - {first_name} aka @{username} (Group: "{title}" {cid}): "{msg}"\n')
+                f'{now_german} - Group: {cid}: "{msg}"\n')
         else:
             f.write(
-                f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
+                f'{now_german} - Person: {cid}: "{msg}"\n')
 
-    cmd_handling(msg, cid)
+    cmd_handling(msg, cid, msg_orig)
 
 
 def echo(u, c):
@@ -216,7 +237,7 @@ def main():
     updater.start_polling()
     emredev.send_message(emre_telegram_id, 'emredev.py startet!')
     # emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
-    # Thread(target=kf.look, args=(emredev,)).start()
+    Thread(target=kf.look, args=(emredev,)).start()
     Thread(target=delete_in_7_days, args=(emredev,)).start()
 
 
