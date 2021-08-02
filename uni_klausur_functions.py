@@ -28,10 +28,8 @@ def look(emredev):
             return
 
         txt = resp.text
-        # print(len(txt.split('Bisher nicht bewertet/')))
-        if len(txt.split('Bisher nicht bewertet/')) < 2:
-            note = txt.split('Ihre Gesamtbewertung für diesen Test:')[
-                1].split('/80,00')[0]
+        if len(txt.split('Bisher nicht bewertet/')) != 2:
+            note = txt.split('Ihre Gesamtbewertung für diesen Test:')[1].split('/80,00')[0]
             emredev.send_message(
                 emre_telegram_id,
                 f"Es gibt eine Note!\n\nDu hast: {note}/80,00 Punkten.\nHier der Link:\n\nhttps://isis.tu-berlin.de/mod/quiz/view.php?id=1152540"
@@ -41,7 +39,3 @@ def look(emredev):
         # print("Noch nicht..")
 
         sleep(60)
-    emredev.send_message(
-        emre_telegram_id,
-        "Es gibt eine Note!\nHier der Link:\n\nhttps://isis.tu-berlin.de/mod/quiz/view.php?id=1152540"
-    )
