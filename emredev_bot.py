@@ -162,7 +162,7 @@ def welcome(chat_member, cid, title):
                 cid, f'Moin {member.first_name},\n\nWillkommen in der Gruppe "{title}"! 😉')
 
 
-def echo(u, c):
+def echo_thread(u, c):
     msg = u.message.text
     if msg:
         msg = msg.lower()
@@ -196,6 +196,10 @@ def echo(u, c):
                 f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
 
     cmd_handling(msg, cid)
+
+
+def echo(u, c):
+    Thread(target=echo_thread, args=(u, c,)).start()
 
 
 def delete_in_7_days(emredev):
