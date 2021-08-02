@@ -49,7 +49,6 @@ def cmd_handling(msg, cid, msg_orig):
         with open('cache/unique_ids.txt', 'r+') as f:
             # read file to list
             unique_ids = f.read().splitlines()
-            print(unique_ids)
             # check if user is already in list
             for id in unique_ids:
                 emredev.send_message(id, txt)
