@@ -11,6 +11,7 @@ import uni_klausur_functions as kf
 
 emredev = Bot(api)
 
+
 def cmd_handling(msg, cid):
     if msg == '/start':
         intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
@@ -50,7 +51,9 @@ def cmd_handling(msg, cid):
                 'cyk': """CYK-Algorithmus von CNF-Grammatiken\nz.B.: /cyk baaba
                         'S -> AB | BC\nA -> BA | a | b\nB -> CC | b\nC -> AB | a'""",
                 'crs': 'Chinesischer Restsatz\nz.B.: /crs 2,3 3,5 2,7',
-                'prf': 'Primfaktorzerlegung und die Eulersche Phi-Funtion\nz.B.: /prf 10'
+                'prf': 'Primfaktorzerlegung einer Zahl (n) und seine Eulersche Phi-Funtion\nz.B.: /prf 10',
+                'rsa_pkey': 'Berechnet den privaten Schlüssel bei gegebenen p und q und e.\nz.B.: /rsa_pkey 11 37 37',
+                'rsa_dec': 'Berechnet die originale Nachricht anhand eines öffentlichen Schlüssels (e, n) und der verschlüsselten Nachricht (c).\nz.B.: /rsa_dec 299 5 60'
 
             }
             command = i[1]
@@ -66,7 +69,7 @@ def cmd_handling(msg, cid):
                 cid, cmd_helps[command])
         else:
             emredev.send_message(
-                cid, 'Hier sind alle meine Befehle: /help, /daten, /gruppe, /emre, /minimize, /cyk, /crs und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
+                cid, 'Hier sind alle meine Befehle: /help, /daten, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
     # minimize 5
     elif '/minimize' in msg:
         # parse string "minimize 5" to int 5
@@ -117,6 +120,36 @@ def cmd_handling(msg, cid):
                 cid, "Syntax-Error. z.B.: /prf 10")
         else:
             ds.tschia_phi(emredev, cid, int(i[1]))
+    elif '/euk' in msg:
+        # extended euclidean algorithm inverse
+        i = msg.split(' ')
+        if len(i) < 2:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /euk a b")
+        else:
+            a = int(i[1])
+            b = int(i[2])
+            ds.euk(emredev, cid, a, b)
+    elif 'rsa_pkey' in msg:
+        i = msg.split(' ')
+        if len(i) < 2:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /rsa_pkey 11 37 37")
+        else:
+            a = int(i[1])
+            b = int(i[2])
+            c = int(i[3])
+            ds.rsa_pkey(emredev, cid, a, b, c)
+    elif 'rsa_dec' in msg:
+        i = msg.split(' ')
+        if len(i) < 2:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /rsa_dec 299 5 60")
+        else:
+            a = int(i[1])
+            b = int(i[2])
+            c = int(i[3])
+            ds.rsa_decrypt(emredev, cid, a, b, c)
 
 
 def welcome(chat_member, cid, title):
