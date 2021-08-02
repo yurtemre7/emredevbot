@@ -11,48 +11,7 @@ import uni_klausur_functions as kf
 
 emredev = Bot(api)
 
-# update and context
-
-
-def echo(u, c):
-    msg = u.message.text
-    if msg:
-        msg = msg.lower()
-    cid = u.message.chat.id
-    username = u.message.chat.username
-    first_name = u.message.chat.first_name
-    is_group = u.message.chat.title is not None
-
-    chat_member = u.message.new_chat_members
-
-    if len(chat_member) > 0:
-        for member in chat_member:
-            if str(member.username) in "emredevbot":
-                emredev.sendMessage(
-                    cid, 'Moin, ich bin der krasse Bot! Schreibt "/help" um all meine Befehle zu erfahren!\n\nPS: Gern auch privat! 😉')
-            else:
-                title = u.message.chat.title
-                emredev.sendMessage(
-                    cid, f'Moin {member.first_name},\n\nWillkommen in der Gruppe "{title}"! 😉')
-    if not msg:
-        return
-
-    # current time
-    now = datetime.now()
-    # convert time to german time
-    now_german = now.strftime('%d.%m.%Y %H:%M:%S')
-
-    with open('cache/log.txt', 'a+') as f:
-        if is_group:
-            first_name = u.message.from_user.first_name
-            username = u.message.from_user.username
-            title = u.message.chat.title
-            f.write(
-                f'{now_german} - {first_name} aka @{username} (Group: "{title}" {cid}): "{msg}"\n')
-        else:
-            f.write(
-                f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
-
+def cmd_handling(msg, cid):
     if msg == '/start':
         intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
         help = 'Schreibe /help um alle Befehle sehen zu können.\n'
@@ -158,6 +117,52 @@ def echo(u, c):
                 cid, "Syntax-Error. z.B.: /prf 10")
         else:
             ds.tschia_phi(emredev, cid, int(i[1]))
+
+
+def welcome(chat_member, cid, title):
+    for member in chat_member:
+        if str(member.username) in "emredevbot":
+            emredev.sendMessage(
+                cid, 'Moin, ich bin der krasse Bot! Schreibt "/help" um all meine Befehle zu erfahren!\n\nPS: Gern auch privat! 😉')
+        else:
+            emredev.sendMessage(
+                cid, f'Moin {member.first_name},\n\nWillkommen in der Gruppe "{title}"! 😉')
+
+
+def echo(u, c):
+    msg = u.message.text
+    if msg:
+        msg = msg.lower()
+    cid = u.message.chat.id
+    username = u.message.chat.username
+    first_name = u.message.chat.first_name
+    is_group = u.message.chat.title is not None
+    title = u.message.chat.title
+
+    chat_member = u.message.new_chat_members
+
+    if len(chat_member) > 0:
+        welcome(chat_member, cid, title)
+    if not msg:
+        return
+
+    # current time
+    now = datetime.now()
+    # convert time to german time
+    now_german = now.strftime('%d.%m.%Y %H:%M:%S')
+
+    with open('cache/log.txt', 'a+') as f:
+        if is_group:
+            first_name = u.message.from_user.first_name
+            username = u.message.from_user.username
+            title = u.message.chat.title
+            f.write(
+                f'{now_german} - {first_name} aka @{username} (Group: "{title}" {cid}): "{msg}"\n')
+        else:
+            f.write(
+                f'{now_german} - {first_name} aka @{username} ({cid}): "{msg}"\n')
+
+    cmd_handling(msg, cid)
 
 
 def delete_in_7_days(emredev):
