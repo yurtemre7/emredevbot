@@ -36,6 +36,6 @@ def look(emredev):
             )
             break
 
-        # print("Noch nicht..")
+        print("Noch nicht..")
 
         sleep(60)
