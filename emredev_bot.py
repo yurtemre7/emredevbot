@@ -3,7 +3,7 @@ from telegram import Bot
 from threading import Thread
 from time import sleep
 from datetime import datetime
-from keys import TELEGRAM_BOT_API_KEY as api, deine_telegram_id, teoman_telegram_id
+from keys import TELEGRAM_BOT_API_KEY as api, deine_telegram_id
 import forsa as fs
 import ds
 import uni_klausur_functions as kf
