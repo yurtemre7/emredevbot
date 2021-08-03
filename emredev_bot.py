@@ -243,9 +243,9 @@ def echo_thread(u, c):
 
     if msg.startswith('/'):
         logging(u, cid, is_group, now_german, msg)
-
-    if len(msg) >= 100:
-        emredev.send_message(cid, f"Deine Nachricht >= {100} Zeichen!? Willst Du mich crashen? 😠")
+        if len(msg) >= 100:
+            emredev.send_message(
+                cid, f"Deine Nachricht >= {100} Zeichen!? Willst Du mich crashen? 😠")
         return
 
     cmd_handling(msg, cid, msg_orig, is_group)
