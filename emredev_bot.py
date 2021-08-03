@@ -246,7 +246,7 @@ def echo_thread(u, c):
         if len(msg) >= 100:
             emredev.send_message(
                 cid, f"Deine Nachricht >= {100} Zeichen!? Willst Du mich crashen? 😠")
-        return
+            return
 
     cmd_handling(msg, cid, msg_orig, is_group)
 
