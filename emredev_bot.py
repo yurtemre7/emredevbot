@@ -8,7 +8,6 @@ import forsa as fs
 import ds
 import uni_klausur_functions as kf
 
-
 emredev = Bot(api)
 
 
@@ -75,7 +74,7 @@ def cmd_handling(msg, cid, msg_orig, is_group):
 
     elif '/log' in msg and cid == emre_telegram_id:
         emredev.send_document(cid, open('cache/log.txt', 'rb'))
-    
+
     elif '/ids' in msg and cid == emre_telegram_id:
         emredev.send_document(cid, open('cache/unique_ids.txt', 'rb'))
 
@@ -114,6 +113,7 @@ def cmd_handling(msg, cid, msg_orig, is_group):
 
     elif '/help' in msg:
         helping(cid, msg)
+
     elif '/minimize' in msg:
         # parse string "minimize 5" to int 5
         i = msg.split(' ')
@@ -243,6 +243,10 @@ def echo_thread(u, c):
 
     if msg.startswith('/'):
         logging(u, cid, is_group, now_german, msg)
+
+    if len(msg) >= 100:
+        emredev.send_message(cid, f"Deine Nachricht >= {100} Zeichen!? Willst Du mich crashen? 😠")
+        return
 
     cmd_handling(msg, cid, msg_orig, is_group)
 
