@@ -66,10 +66,10 @@ def cmd_handling(msg, cid, msg_orig, is_group):
     elif '/emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
 
-    elif 'java' in msg:
+    elif 'java' in msg and not is_group:
         emredev.send_message(cid, 'Manfred? 😊')
 
-    elif 'ente' in msg:
+    elif 'ente' in msg and not is_group:
         emredev.send_message(cid, 'Quack! 🦆')
 
     elif '/log' in msg and cid == emre_telegram_id:
