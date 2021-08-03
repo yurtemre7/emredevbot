@@ -1,6 +1,6 @@
 import requests as r
 from time import sleep
-from keys import cookie, emre_telegram_id
+from keys import cookie, deine_telegram_id
 
 
 def getHeaders():
@@ -22,7 +22,7 @@ def look(emredev):
                 headers=getHeaders())
         except:
             emredev.send_message(
-                emre_telegram_id,
+                deine_telegram_id,
                 "Es ist ein Fehler aufgetreten. (Cookie expired ?)"
             )
             return
@@ -31,7 +31,7 @@ def look(emredev):
         if len(txt.split('Bisher nicht bewertet/')) != 2:
             note = txt.split('Ihre Gesamtbewertung für diesen Test:')[1].split('/80,00')[0]
             emredev.send_message(
-                emre_telegram_id,
+                deine_telegram_id,
                 f"Es gibt eine Note!\n\nDu hast: {note}/80,00 Punkten.\nHier der Link:\n\nhttps://isis.tu-berlin.de/mod/quiz/view.php?id=1152540"
             )
             break

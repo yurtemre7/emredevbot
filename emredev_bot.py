@@ -3,7 +3,7 @@ from telegram import Bot
 from threading import Thread
 from time import sleep
 from datetime import datetime
-from keys import TELEGRAM_BOT_API_KEY as api, emre_telegram_id, teoman_telegram_id
+from keys import TELEGRAM_BOT_API_KEY as api, deine_telegram_id, teoman_telegram_id
 import forsa as fs
 import ds
 import uni_klausur_functions as kf
@@ -72,10 +72,10 @@ def cmd_handling(msg, cid, msg_orig, is_group):
     elif 'ente' in msg and not is_group:
         emredev.send_message(cid, 'Quack! 🦆')
 
-    elif '/log' in msg and cid == emre_telegram_id:
+    elif '/log' in msg and cid == deine_telegram_id:
         emredev.send_document(cid, open('cache/log.txt', 'rb'))
 
-    elif '/ids' in msg and cid == emre_telegram_id:
+    elif '/ids' in msg and cid == deine_telegram_id:
         emredev.send_document(cid, open('cache/unique_ids.txt', 'rb'))
 
     elif msg == '/notify' and not is_group:
@@ -99,7 +99,7 @@ def cmd_handling(msg, cid, msg_orig, is_group):
         emredev.send_message(
             cid, "Du wirst ab sofort keine globalen Nachrichten erhalten.")
 
-    elif '/sendall' in msg and cid == emre_telegram_id:
+    elif '/sendall' in msg and cid == deine_telegram_id:
         i = msg_orig.split(' ')
         txt = ' '
         txt = txt.join(i[1:])
@@ -257,7 +257,7 @@ def echo(u, c):
 
 def delete_in_7_days(emredev):
     sleep(7*24*60*60)
-    emredev.send_message(emre_telegram_id, 'Dein Log wurde gelöscht.')
+    emredev.send_message(deine_telegram_id, 'Dein Log wurde gelöscht.')
     with open('cache/log.txt', 'w') as f:
         f.write('')
 
@@ -267,7 +267,7 @@ def main():
     dp = updater.dispatcher
     dp.add_handler(MessageHandler(Filters.all, echo))
     updater.start_polling()
-    emredev.send_message(emre_telegram_id, 'emredev.py startet!')
+    emredev.send_message(deine_telegram_id, 'emredev.py startet!')
     # emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
     Thread(target=kf.look, args=(emredev,)).start()
     Thread(target=delete_in_7_days, args=(emredev,)).start()
