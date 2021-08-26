@@ -7,6 +7,7 @@ from keys import TELEGRAM_BOT_API_KEY as api, deine_telegram_id
 import forsa as fs
 import ds
 import uni_klausur_functions as kf
+import wolfram
 
 emredev = Bot(api)
 
@@ -65,6 +66,9 @@ def cmd_handling(msg, cid, msg_orig, is_group):
 
     elif '/emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
+
+    elif msg.startswith('/m') or msg.startswith('/math'):
+        wolfram.wolframAPI(emredev, cid, msg.replace('/m', '').replace('/math', ''))
 
     elif 'java' in msg and not is_group:
         emredev.send_message(cid, 'Manfred? 😊')
@@ -269,7 +273,7 @@ def main():
     updater.start_polling()
     emredev.send_message(deine_telegram_id, 'emredev.py startet!')
     # emredev.send_message(teoman_telegram_id, 'emredev.py startet!')
-    Thread(target=kf.look, args=(emredev,)).start()
+    # Thread(target=kf.look, args=(emredev,)).start()
     Thread(target=delete_in_7_days, args=(emredev,)).start()
 
 
