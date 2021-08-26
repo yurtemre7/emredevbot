@@ -18,6 +18,8 @@ def helping(cid, msg):
         cmd_helps = {
             'minimize': 'Minimiert einen DFA\nz.B.: /minimize 7 a,b q0 q3\n\nErklärung:\n7 = größter Index der Zustände zb q7 => 7\na,b = Eingabealphabet\nq0 = Startzustand / q0,q1 Startzustände\nq3 = Endzustand / q3,q5 Endzustände\n',
             'gruppe': 'Information zu Gruppen.',
+            'm' : 'WolframAlpha aber in Telegram',
+            'math' : 'WolframAlpha aber in Telegram',
             'notify': 'Erhalte globale Nachrichten',
             'denotify': 'Erhalte keine weiteren globalen Nachrichten',
             'emre': 'Information zum Erfinder.',
@@ -43,7 +45,7 @@ def helping(cid, msg):
             cid, cmd_helps[command])
     else:
         emredev.send_message(
-            cid, 'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
+            cid, 'Hier sind alle meine Befehle: /help, /daten, /m oder /math, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
 
 
 def cmd_handling(msg, cid, msg_orig, is_group):
