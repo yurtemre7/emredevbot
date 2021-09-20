@@ -7,7 +7,6 @@ from keys import TELEGRAM_BOT_API_KEY as api, deine_telegram_id
 import forsa as fs
 import ds
 import uni_klausur_functions as kf
-import wolfram
 
 emredev = Bot(api)
 
@@ -18,8 +17,6 @@ def helping(cid, msg):
         cmd_helps = {
             'minimize': 'Minimiert einen DFA\nz.B.: /minimize 7 a,b q0 q3\n\nErklärung:\n7 = größter Index der Zustände zb q7 => 7\na,b = Eingabealphabet\nq0 = Startzustand / q0,q1 Startzustände\nq3 = Endzustand / q3,q5 Endzustände\n',
             'gruppe': 'Information zu Gruppen.',
-            'm' : 'WolframAlpha aber in Telegram',
-            'math' : 'WolframAlpha aber in Telegram',
             'notify': 'Erhalte globale Nachrichten',
             'denotify': 'Erhalte keine weiteren globalen Nachrichten',
             'emre': 'Information zum Erfinder.',
@@ -45,10 +42,11 @@ def helping(cid, msg):
             cid, cmd_helps[command])
     else:
         emredev.send_message(
-            cid, 'Hier sind alle meine Befehle: /help, /daten, /m oder /math, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
+            cid, 'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
 
 
 def cmd_handling(msg, cid, msg_orig, is_group):
+    emredev.sendChatAction(chat_id=cid, action='typing')
     if msg == '/start':
         intro = 'Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n'
         nachricht = 'Es wird in der Zukunft "Nachrichten an alle" geben. Du erhälst natürlich nur eine Nachricht, wenn Du dies willst. Schreibe /notify wenn Du dabei bist und ggf. /denotify wenn Du keine weiteren Nachrichten erhalten möchtest.'
@@ -68,9 +66,6 @@ def cmd_handling(msg, cid, msg_orig, is_group):
 
     elif '/emre' in msg:
         emredev.send_message(cid, "@emredev ist der Entwickler von mir!")
-
-    elif msg.startswith('/m') or msg.startswith('/math'):
-        wolfram.wolframAPI(emredev, cid, msg.replace('/m', '').replace('/math', ''))
 
     elif 'java' in msg and not is_group:
         emredev.send_message(cid, 'Manfred? 😊')
