@@ -10,6 +10,7 @@ Currently supporting:
 - DS
 - ForSA
 - ISDA
+- RN
 
 Future features:
 - AlgoDat
