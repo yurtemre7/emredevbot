@@ -6,6 +6,7 @@ from datetime import datetime
 from keys import TELEGRAM_BOT_API_KEY as api, deine_telegram_id
 import forsa as fs
 import ds
+import rn
 import uni_klausur_functions as kf
 
 emredev = Bot(api)
@@ -26,7 +27,9 @@ def helping(cid, msg):
             'prf': 'Primfaktorzerlegung einer Zahl (n) und seine Eulersche Phi-Funtion\nz.B.: /prf 10',
             'rsa_pkey': 'Berechnet den privaten Schlüssel bei gegebenen p und q und e.\nz.B.: /rsa_pkey 11 37 37',
             'rsa_dec': 'Berechnet die originale Nachricht anhand eines öffentlichen Schlüssels (e, n) und der verschlüsselten Nachricht (c).\nz.B.: /rsa_dec 299 5 60',
-            'euk': 'Führt den erweiterten euklidischen Algorithmus aus bei gegebenen a und b.\nz.B.: /euk 2 9'
+            'euk': 'Führt den erweiterten euklidischen Algorithmus aus bei gegebenen a und b.\nz.B.: /euk 2 9',
+            'berkley' : 'Führt den Berkley Algorithmus für Zeitsynchronisation aus.\nz.B.: /berkley 1 2 3',
+            'ntp' : 'Führt den NTP-Algorithmus für Zeitsynchronisation aus.\nz.B.: /ntp 1 2 3 4',
 
         }
         command = i[1]
@@ -42,7 +45,7 @@ def helping(cid, msg):
             cid, cmd_helps[command])
     else:
         emredev.send_message(
-            cid, 'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk und /prf.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
+            cid, 'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
 
 
 def cmd_handling(msg, cid, msg_orig, is_group):
@@ -194,6 +197,27 @@ def cmd_handling(msg, cid, msg_orig, is_group):
             b = int(i[2])
             c = int(i[3])
             ds.rsa_decrypt(emredev, cid, a, b, c)
+    elif 'berkley' in msg:
+        i = msg.split(' ')
+        if len(i) < 2:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /berkley 1 2 3")
+        else:
+            a = int(i[1])
+            b = int(i[2])
+            c = int(i[3])
+            rn.berkley(emredev, cid, a, b, c)
+    elif 'ntp' in msg:
+        i = msg.split(' ')
+        if len(i) < 3:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /berkley 1 2 3 4")
+        else:
+            a = int(i[1])
+            b = int(i[2])
+            c = int(i[3])
+            d = int(i[4])
+            rn.ntp(emredev, cid, a, b, c, d)
 
 
 def welcome(chat_member, cid, title):
