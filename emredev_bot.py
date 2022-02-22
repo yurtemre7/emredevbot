@@ -30,6 +30,9 @@ def helping(cid, msg):
             'euk': 'Führt den erweiterten euklidischen Algorithmus aus bei gegebenen a und b.\nz.B.: /euk 2 9',
             'berkley' : 'Führt den Berkley Algorithmus für Zeitsynchronisation aus.\nz.B.: /berkley 1 2 3',
             'ntp' : 'Führt den NTP-Algorithmus für Zeitsynchronisation aus.\nz.B.: /ntp 1 2 3 4',
+            'ip' : 'Konvertiert eine IP-Adresse in eine Binärzahl.\nz.B.: /ip 192.168.0.2',
+            'bin' : 'Konvertiert eine Binärzahl in eine IP-Adresse.\nz.B.: /bin 11000000.10101000.00000010.00000000',
+            'and' : 'Bitweises Und zweier Binärzahlen.\nz.B.: /and 11000000.10101000.00000010.00000000 11000000.10101000.00000010.00000000',
 
         }
         command = i[1]
@@ -45,7 +48,7 @@ def helping(cid, msg):
             cid, cmd_helps[command])
     else:
         emredev.send_message(
-            cid, 'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
+            cid, 'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp, /ip, /bin, /and.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!')
 
 
 def cmd_handling(msg, cid, msg_orig, is_group):
@@ -218,6 +221,31 @@ def cmd_handling(msg, cid, msg_orig, is_group):
             c = int(i[3])
             d = int(i[4])
             rn.ntp(emredev, cid, a, b, c, d)
+    elif 'ip' in msg:
+        i = msg.split(' ')
+        if len(i) < 1:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /ip 192.168.0.2")
+        else:
+            a = i[1]
+            rn.ip_to_bin(emredev, cid, a)
+    elif 'bin' in msg:
+        i = msg.split(' ')
+        if len(i) < 1:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /bin 11000000.10101000.00000010.00000000")
+        else:
+            a = i[1]
+            rn.bin_to_ip(emredev, cid, a)
+    elif 'and' in msg:
+        i = msg.split(' ')
+        if len(i) < 2:
+            emredev.send_message(
+                cid, "Syntax-Error. z.B.: /and 11000000.10101000.00000010.00000000 11111111.11111111.11111111.00000000")
+        else:
+            a = i[1]
+            b = i[2]
+            rn.bitwise_and(emredev, cid, a, b)
 
 
 def welcome(chat_member, cid, title):
