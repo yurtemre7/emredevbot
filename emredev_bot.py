@@ -211,7 +211,7 @@ def cmd_handling(msg, cid, msg_orig, is_group):
         i = msg.split(' ')
         if len(i) < 3:
             emredev.send_message(
-                cid, "Syntax-Error. z.B.: /berkley 1 2 3 4")
+                cid, "Syntax-Error. z.B.: /ntp 1 2 3 4")
         else:
             a = int(i[1])
             b = int(i[2])
