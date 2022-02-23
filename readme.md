@@ -11,6 +11,7 @@ Currently supporting:
 - ForSA
 - ISDA
 - RN
+- BeKo
 
 Future features:
 - AlgoDat
