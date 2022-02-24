@@ -114,7 +114,7 @@ def pcp(emredev, cid, dominos, max_depth):
         a += "Dieses PCP ist Längenmonoton, es hat also keine Lösungen. 🙁"
         emredev.send_message(cid, a)
         return
-    if 50 * np.log(3)/np.log(len(dominos)) <= 50:
+    if 50 * np.log(3)/np.log(len(dominos)) > 50:
         a += "Tut mir leid aber mit solch großen Zahlen kann ich nicht rechnen 😢"
         emredev.send_message(cid, a)
         return
