@@ -12,8 +12,22 @@ def isPrefixFree(dominos) -> bool:
 
     return True
 
+def isSuffixFree(dominos) -> bool:
+    n = len(dominos)
+    for i in range(n):
+        xi = dominos[i][0]
+        yi = dominos[i][1]
+        if xi == yi:
+            return False
+        if (len(xi) > len(yi)) and (xi[-len(yi):] == yi):
+            return False
+        if (len(yi) > len(xi)) and (yi[-len(xi):] == xi):
+            return False
 
-# check if the x_i's are always smaller than the y_i's
+    return True
+
+
+print(isSuffixFree([["a", "ba"]]))
 
 
 def isLaengenmonoton(dominos):
@@ -35,10 +49,6 @@ def isLaengenmonoton(dominos):
             res2 = False
             break
     return res or res2
-
-
-print(isLaengenmonoton([["aa", "a"], ["aab", "ab"], ["ab", "b"], ["bb", "b"]]))
-print(isLaengenmonoton([["a", "aa"], ["ab", "aab"], ["b", "ab"], ["b", "bb"]]))
 
 
 def pcp_solver(dominos, max_depth):
@@ -93,6 +103,10 @@ def pcp(emredev, cid, dominos, max_depth):
     a = ""
     if isPrefixFree(dominos):
         a += f"Dieses PCP ist Präfixfrei, es hat also keine Lösungen. 🙁"
+        emredev.send_message(cid, a)
+        return
+    if isSuffixFree(dominos):
+        a += f"Dieses PCP ist Suffixfrei, es hat also keine Lösungen. 🙁"
         emredev.send_message(cid, a)
         return
     if isLaengenmonoton(dominos):
