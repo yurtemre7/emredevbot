@@ -12,6 +12,7 @@ def isPrefixFree(dominos) -> bool:
 
     return True
 
+
 def isSuffixFree(dominos) -> bool:
     n = len(dominos)
     for i in range(n):
@@ -19,15 +20,12 @@ def isSuffixFree(dominos) -> bool:
         yi = dominos[i][1]
         if xi == yi:
             return False
-        if (len(xi) > len(yi)) and (xi[-len(yi):] == yi):
+        if (len(xi) > len(yi)) and (xi[-len(yi) :] == yi):
             return False
-        if (len(yi) > len(xi)) and (yi[-len(xi):] == xi):
+        if (len(yi) > len(xi)) and (yi[-len(xi) :] == xi):
             return False
 
     return True
-
-
-print(isSuffixFree([["a", "ba"]]))
 
 
 def isLaengenmonoton(dominos):
