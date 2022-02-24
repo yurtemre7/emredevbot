@@ -119,7 +119,6 @@ def pcp(emredev, cid, dominos, max_depth):
         emredev.send_message(cid, a)
         return
     res = pcp_solver(dominos, max_depth)
-    print(res)
 
     if res != []:
         a += "Lösung für dieses PCP 😃👌: \n" + str(res) + "\n\n"
