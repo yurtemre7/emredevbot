@@ -24,16 +24,20 @@ def isLaengenmonoton(dominos):
         yi = dominos[i][1]
         res = len(xi) < len(yi)
         if not res or xi == yi or len(xi) == len(yi):
-            return False
+            res = False
+            break
+    res2 = False
     for i in range(n):
         xi = dominos[i][0]
         yi = dominos[i][1]
-        res = len(xi) > len(yi)
-        if not res or xi == yi or len(xi) == len(yi):
-            return False
-    return res
+        res2 = len(xi) > len(yi)
+        if not res2 or xi == yi or len(xi) == len(yi):
+            res2 = False
+            break
+    return res or res2
 
 
+print(isLaengenmonoton([["aa", "a"], ["aab", "ab"], ["ab", "b"], ["bb", "b"]]))
 print(isLaengenmonoton([["a", "aa"], ["ab", "aab"], ["b", "ab"], ["b", "bb"]]))
 
 
