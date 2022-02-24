@@ -25,6 +25,12 @@ def isLaengenmonoton(dominos):
         res = len(xi) < len(yi)
         if not res or xi == yi or len(xi) == len(yi):
             return False
+    for i in range(n):
+        xi = dominos[i][0]
+        yi = dominos[i][1]
+        res = len(xi) > len(yi)
+        if not res or xi == yi or len(xi) == len(yi):
+            return False
     return res
 
 
