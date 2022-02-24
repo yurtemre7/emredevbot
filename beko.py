@@ -1,3 +1,36 @@
+def isPrefixFree(dominos) -> bool:
+    n = len(dominos)
+    for i in range(n):
+        xi = dominos[i][0]
+        yi = dominos[i][1]
+        if xi == yi:
+            return False
+        if (len(xi) < len(yi)) and (yi[: len(xi)] == xi):
+            return False
+        if (len(yi) < len(xi)) and (xi[: len(yi)] == yi):
+            return False
+
+    return True
+
+
+# check if the x_i's are always smaller than the y_i's
+
+
+def isLaengenmonoton(dominos):
+    n = len(dominos)
+    res = False
+    for i in range(n):
+        xi = dominos[i][0]
+        yi = dominos[i][1]
+        res = len(xi) < len(yi)
+        if not res or xi == yi or len(xi) == len(yi):
+            return False
+    return res
+
+
+print(isLaengenmonoton([["a", "aa"], ["ab", "aab"], ["b", "ab"], ["b", "bb"]]))
+
+
 def pcp_solver(dominos, max_depth):
     solutions = []
     n = len(dominos)
@@ -47,8 +80,18 @@ def pcp_solver(dominos, max_depth):
 
 
 def pcp(emredev, cid, dominos, max_depth):
-    res = pcp_solver(dominos, max_depth)
     a = ""
+    if isPrefixFree(dominos):
+        a += f"Dieses PCP ist Präfixfrei, es hat also keine Lösungen. 🙁"
+        emredev.send_message(cid, a)
+        return
+    if isLaengenmonoton(dominos):
+        a += f"Dieses PCP ist Längenmonoton, es hat also keine Lösungen. 🙁"
+        emredev.send_message(cid, a)
+        return
+
+    res = pcp_solver(dominos, max_depth)
+
     if res != []:
         a += "Lösung für dieses PCP 😃👌: \n" + str(res) + "\n\n"
         xlist = ""
