@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def isPrefixFree(dominos) -> bool:
     n = len(dominos)
     for i in range(n):
@@ -100,19 +103,23 @@ def pcp_solver(dominos, max_depth):
 def pcp(emredev, cid, dominos, max_depth):
     a = ""
     if isPrefixFree(dominos):
-        a += f"Dieses PCP ist Präfixfrei, es hat also keine Lösungen. 🙁"
+        a += "Dieses PCP ist Präfixfrei, es hat also keine Lösungen. 🙁"
         emredev.send_message(cid, a)
         return
     if isSuffixFree(dominos):
-        a += f"Dieses PCP ist Suffixfrei, es hat also keine Lösungen. 🙁"
+        a += "Dieses PCP ist Suffixfrei, es hat also keine Lösungen. 🙁"
         emredev.send_message(cid, a)
         return
     if isLaengenmonoton(dominos):
-        a += f"Dieses PCP ist Längenmonoton, es hat also keine Lösungen. 🙁"
+        a += "Dieses PCP ist Längenmonoton, es hat also keine Lösungen. 🙁"
         emredev.send_message(cid, a)
         return
-
+    if 50 * np.log(max_depth)/np.log(len(dominos)) <= 50:
+        a += "Tut mir leid aber mit solch großen Zahlen kann ich nicht rechnen 😢"
+        emredev.send_message(cid, a)
+        return
     res = pcp_solver(dominos, max_depth)
+    print(res)
 
     if res != []:
         a += "Lösung für dieses PCP 😃👌: \n" + str(res) + "\n\n"
