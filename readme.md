@@ -9,7 +9,6 @@ Made by [@yurtemre7](https://github.com/yurtemre7)
 Currently supporting:
 - DS
 - ForSA
-- ISDA
 - RN
 - BeKo
 
