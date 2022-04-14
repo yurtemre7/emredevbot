@@ -142,7 +142,7 @@ def cmd_handling(msg, cid, msg_orig, is_group):
             fs.tschia_minimize(emredev, i, cid)
             emredev.send_message(
                 cid,
-                "Vergiss nicht das Delta anzupassen! zb. qA0 -> q0. Die 'A's sind zum Ersetzen da.",
+                "Vergiss nicht das Delta anzupassen! zb. qA0 -> q0. Die 'A's sind zum Ersetzen da.\nhttps://web.cs.ucdavis.edu/~doty/automata/",
             )
     elif "/cyk" in msg:
         # parse string "minimize 5" to int 5
