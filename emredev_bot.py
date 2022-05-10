@@ -9,6 +9,7 @@ import ds
 import rn
 import beko
 import uni_klausur_functions as kf
+import algotheo as al
 
 emredev = Bot(api)
 
@@ -35,6 +36,8 @@ def helping(cid, msg):
             "bin": "Konvertiert eine Binärzahl in eine IP-Adresse.\nz.B.: /bin 11000000.10101000.00000010.00000000",
             "and": "Bitweises Und zweier Binärzahlen.\nz.B.: /and 11000000.10101000.00000010.00000000 11000000.10101000.00000010.00000000",
             "pcp": "Führt den PCP Algorithmus aus.\nz.B.: /pcp 6 1#101 10#00 011#11",
+            "inversion": "Findet alle Inversionen zwischen zwei Listen.\nz.B.: /inversion 1,2,3 4,2,6",
+            "prä": "Validiert ob eine Kodierung Präfixfrei ist.\nz.B.: z.B.: /prä 001 0011",
         }
         command = i[1]
 
@@ -51,7 +54,7 @@ def helping(cid, msg):
     else:
         emredev.send_message(
             cid,
-            'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp, /ip, /bin, /and, /pcp.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!',
+            'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp, /ip, /bin, /and, /pcp, /inversionen, /prä.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!',
         )
 
 
@@ -270,6 +273,36 @@ def cmd_handling(msg, cid, msg_orig, is_group):
                 domino = i[j].split("#")
                 dominos.append(domino)
             beko.pcp(emredev, cid, dominos, depth)
+    elif "inversion" in msg:
+        i = msg.split(" ")
+        if len(i) < 3:
+            emredev.send_message(cid, "Syntax-Error. z.B.: /inversion 1,2,3 4,2,6")
+        else:
+            lista = [int(a) for a in i[1].split(",")]
+            listb = [int(a) for a in i[2].split(",")]
+            al.calculate_inversions(emredev, cid, lista, listb)
+    elif "prä" in msg:
+        i = msg.split(" ")
+        if len(i) < 3:
+            emredev.send_message(cid, "Syntax-Error. z.B.: /prä 001 01")
+        else:
+            dominos = []
+            for j in range(1, len(i)):
+                domino = i[j]
+                dominos.append(domino)
+            al.isPrefixFree(emredev, cid, dominos)
+    elif "huff" in msg:
+        f = {
+            "K": 0.04,
+            "O": 0.1,
+            "D": 0.06,
+            "I": 0.112,
+            "E": 0.02,
+            "R": 0.007,
+            "U": 0.221,
+            "N": 0.05,
+            "G": 0.39,
+        }
 
 
 def welcome(chat_member, cid, title):
@@ -324,8 +357,7 @@ def echo_thread(u, c):
         logging(u, cid, is_group, now_german, msg)
         if len(msg) >= 100:
             emredev.send_message(
-                cid,
-                f"Deine Nachricht >= 100 Zeichen!? Willst Du mich crashen? 😠",
+                cid, "Deine Nachricht >= 100 Zeichen!? Willst Du mich crashen? 😠"
             )
 
             return

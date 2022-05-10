@@ -11,9 +11,7 @@ Currently supporting:
 - ForSA
 - RN
 - BeKo
-
-Future features:
-- AlgoDat
+- AlgoTheo
 
 Feel free to contact me if you have any questions or suggestions
 [@emredev](https://t.me/emredev).
