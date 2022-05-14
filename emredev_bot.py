@@ -275,9 +275,13 @@ def cmd_handling(msg, cid, msg_orig, is_group):
             beko.pcp(emredev, cid, dominos, depth)
     elif "inversion" in msg:
         i = msg.split(" ")
-        if len(i) < 3:
-            emredev.send_message(cid, "Syntax-Error. z.B.: /inversion 1,2,3 4,2,6")
+        if len(i) < 2:
+            emredev.send_message(cid, "Syntax-Error. z.B.: /inversion 1,2,3 ODER /inversion 1,2,3 4,2,6")
         else:
+            if len(i) == 2:
+                lista = [int(a) for a in i[1].split(",")]
+                al.calculate_own_inversions(emredev, cid, lista)
+                return
             lista = [int(a) for a in i[1].split(",")]
             listb = [int(a) for a in i[2].split(",")]
             al.calculate_inversions(emredev, cid, lista, listb)
@@ -292,17 +296,15 @@ def cmd_handling(msg, cid, msg_orig, is_group):
                 dominos.append(domino)
             al.isPrefixFree(emredev, cid, dominos)
     elif "huff" in msg:
-        f = {
-            "K": 0.04,
-            "O": 0.1,
-            "D": 0.06,
-            "I": 0.112,
-            "E": 0.02,
-            "R": 0.007,
-            "U": 0.221,
-            "N": 0.05,
-            "G": 0.39,
-        }
+        # a,2/10 b,0.3 c,0.1 d,0.4 to map {a: 0.2, b: 0.3, c: 0.1, d: 0.4}
+        i = msg.split(" ")
+        mapf = {}
+        for j in range(1, len(i)):
+            domino = i[j].split(",")
+            mapf[domino[0]] = eval(domino[1])
+        al.huffman_solver(emredev, cid, mapf)
+    elif "/find_sm" in msg_orig:
+        al.stable_match_parser(emredev, cid, msg_orig)
 
 
 def welcome(chat_member, cid, title):
@@ -320,15 +322,17 @@ def welcome(chat_member, cid, title):
 
 
 def logging(u, cid, is_group, now_german, msg):
-    with open("cache/log.txt", "a+") as f:
-        if is_group:
-            first_name = u.message.from_user.first_name
-            username = u.message.from_user.username
-            title = u.message.chat.title
-            f.write(f'{now_german} - Group: {cid}: "{msg}"\n')
-        else:
-            f.write(f'{now_german} - Person: {cid}: "{msg}"\n')
-
+    try:
+        with open("cache/log.txt", "a+") as f:
+            if is_group:
+                first_name = u.message.from_user.first_name
+                username = u.message.from_user.username
+                title = u.message.chat.title
+                f.write(f'{now_german} - Group: {cid}: "{msg}"\n')
+            else:
+                f.write(f'{now_german} - Person: {cid}: "{msg}"\n')
+    except:
+        pass
 
 def echo_thread(u, c):
     msg = u.message.text
@@ -355,7 +359,7 @@ def echo_thread(u, c):
 
     if msg.startswith("/"):
         logging(u, cid, is_group, now_german, msg)
-        if len(msg) >= 100:
+        if len(msg) >= 1000:
             emredev.send_message(
                 cid, "Deine Nachricht >= 100 Zeichen!? Willst Du mich crashen? 😠"
             )
