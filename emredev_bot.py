@@ -36,8 +36,10 @@ def helping(cid, msg):
             "bin": "Konvertiert eine Binärzahl in eine IP-Adresse.\nz.B.: /bin 11000000.10101000.00000010.00000000",
             "and": "Bitweises Und zweier Binärzahlen.\nz.B.: /and 11000000.10101000.00000010.00000000 11000000.10101000.00000010.00000000",
             "pcp": "Führt den PCP Algorithmus aus.\nz.B.: /pcp 6 1#101 10#00 011#11",
-            "inversion": "Findet alle Inversionen zwischen zwei Listen.\nz.B.: /inversion 1,2,3 4,2,6",
-            "prä": "Validiert ob eine Kodierung Präfixfrei ist.\nz.B.: z.B.: /prä 001 0011",
+            "inversion": "Findet alle Inversionen zwischen zwei Listen.\nz.B.: /inversion 1,2,3 ODER /inversion 1,2,3 4,2,6",
+            "prä": "Validiert ob eine Kodierung Präfixfrei ist.\nz.B.: /prä 001 0011",
+            "huff" : "Findet alle Huffmankodierungen.\nz.B.: /huff a,0.6 b,0.4",
+            "find_sm" : "Findet alle Stable Matchings. Du kannst einfach die Aufgabe kopieren und hier einfügen.\nz.B.: /find_sm A : Z < Y < X, X : A < B < C, B : Y < X < Z, Y : C < A < B, C : X < Z < Y, Z : B < C < A."
         }
         command = i[1]
 
@@ -54,7 +56,7 @@ def helping(cid, msg):
     else:
         emredev.send_message(
             cid,
-            'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp, /ip, /bin, /and, /pcp, /inversionen, /prä.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!',
+            'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp, /ip, /bin, /and, /pcp, /inversionen, /prä, /huff, /find_sm.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!',
         )
 
 
@@ -64,7 +66,7 @@ def cmd_handling(msg, cid, msg_orig, is_group):
         intro = "Hi! Ich bin ein unoffizieller Telegram-TUB-Bot, made by @emredev, der Dir vieles einfacher macht.\n"
         nachricht = 'Es wird in der Zukunft "Nachrichten an alle" geben. Du erhälst natürlich nur eine Nachricht, wenn Du dies willst. Schreibe /notify wenn Du dabei bist und ggf. /denotify wenn Du keine weiteren Nachrichten erhalten möchtest.'
         help = "Schreibe /help um alle Befehle sehen zu können.\n"
-        daten = "Schreibe /daten, falls du weitere Infos zum Bot wissen möchtest.\n"
+        daten = "Schreibe /daten, falls Du weitere Infos zum Bot wissen möchtest.\n"
         emredev.send_message(cid, intro + help + daten)
 
     elif "/daten" in msg:
@@ -331,7 +333,7 @@ def logging(u, cid, is_group, now_german, msg):
                 f.write(f'{now_german} - Group: {cid}: "{msg}"\n')
             else:
                 f.write(f'{now_german} - Person: {cid}: "{msg}"\n')
-    except:
+    except Exception:
         pass
 
 def echo_thread(u, c):
