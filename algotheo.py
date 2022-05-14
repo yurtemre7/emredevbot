@@ -227,6 +227,9 @@ def stable_matching_bf(*, students, families, student_pref, family_pref):
 
 
 def stable_match_parser(emredev, cid, inp):
+    """
+    author : @petro ehrenmann
+    """
     last = ""
     # clean input and add all to one dict
     mydict = {}
