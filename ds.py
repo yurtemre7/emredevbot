@@ -124,7 +124,7 @@ def displayPermutation(permutation):
     return "\n".join([" ".join([f"{permutation[j][i]:^{max(map(len, [item[0] for item in permutation]))}}" for j in range(len(permutation))]) for i in [0,1]])
 
 def tschia_permutationOrdered(emredev, cid, string):
-    permutation = list(zip(string.split(" ").sort(), string.split(" ")))
+    permutation = list(zip(sorted(string.split(" ")), string.split(" ")))
     cycles = convertToCycles(permutation.copy())
     answer = "\n".join(["The permutation:",displayPermutation(permutation),f"contains {len(cycles)} cycles:",  ",\n".join(map(displayCycle, cycles)) + "." ])
     emredev.send_message(cid, answer)
