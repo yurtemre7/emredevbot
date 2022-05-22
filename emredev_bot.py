@@ -307,6 +307,14 @@ def cmd_handling(msg, cid, msg_orig, is_group):
         al.huffman_solver(emredev, cid, mapf)
     elif "/find_sm" in msg_orig:
         al.stable_match_parser(emredev, cid, msg_orig)
+    elif "/cycles" in msg_orig:
+        if len(i) == 2:
+                stra =' '.join(i[1].split(","))
+                ds.tschia_permutationOrdered(emredev, cid, stra)
+                return
+        stra = ' '.join(i[1].split(","))
+        strb = ' '.join(i[2].split(","))
+        ds.tschia_permutation(emredev, cid, stra, strb)
 
 
 def welcome(chat_member, cid, title):
