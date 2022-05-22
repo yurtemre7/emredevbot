@@ -99,7 +99,43 @@ def tschia_phi(emredev, cid, number):
 
     emredev.send_message(cid, f"{sols}= {phi}")
 
+    
+def convertToCycles(permutation):
+    myCycles = []
+    while permutation:
+        newCycle = []
+        newCycle += [permutation[0]]
+        permutation.pop(0)
+        i = 0
+        while newCycle[0][0] != newCycle[-1][1]:
+            if permutation[i][0]==newCycle[-1][1]:
+                newCycle += [permutation[i]]
+                permutation.pop(i)
+                i = 0
+            else:
+                i+=1
+        myCycles += [newCycle]
+    return myCycles
 
+def displayCycle(cycle):
+    return "(" + " ".join([cycle[0][0]] + [i[1] for i in cycle[:-1]]) + f") with length of {len(cycle)}"
+
+def displayPermutation(permutation):
+    return "\n".join([" ".join([f"{permutation[j][i]:^{max(map(len, [item[0] for item in permutation]))}}" for j in range(len(permutation))]) for i in [0,1]])
+
+def tschia_permutationOrdered(emredev, cid, string):
+    permutation = list(zip(string.split(" ").sort(), string.split(" ")))
+    cycles = convertToCycles(permutation.copy())
+    answer = "\n".join(["The permutation:",displayPermutation(permutation),f"contains {len(cycles)} cycles:",  ",\n".join(map(displayCycle, cycles)) + "." ])
+    emredev.send_message(cid, answer)
+    
+
+def tschia_permutation(emredev, cid, str1, str2):
+    permutation = list(zip(str1.split(" "), str2.split(" ")))
+    cycles = convertToCycles(permutation.copy())
+    answer = "\n".join(["The permutation:",displayPermutation(permutation),f"contains {len(cycles)} cycles:",  ",\n".join(map(displayCycle, cycles)) + "." ])
+    emredev.send_message(cid, answer)
+    
 # euclidean algorithm inverse
 def euk(emredev, cid, a, b):
     sol = None
@@ -108,7 +144,6 @@ def euk(emredev, cid, a, b):
         emredev.send_message(cid, sol)
     except:
         emredev.send_message(cid, "Die Zahl ist nicht invertierbar.")
-
 
 def p_euk(emredev, cid, a, b):
     sol = None
