@@ -57,7 +57,7 @@ def helping(cid, msg):
     else:
         emredev.send_message(
             cid,
-            'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp, /ip, /bin, /and, /pcp, /inversion, /prae, /huff, /find_sm.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!',
+            'Hier sind alle meine Befehle: /help, /daten, /notify, /denotify, /gruppe, /emre, /minimize, /cyk, /crs, /rsa_dec, /rsa_pkey, /euk, /prf, /berkley, /ntp, /ip, /bin, /and, /pcp, /inversion, /prae, /huff, /find_sm, /cycles.\nUm mehr über einen Befehl zu erfahren schreibe: z.B: /help prf\n\nZudem reagiere ich auf die Keywords "Java" und "Ente" sobald diese in einem Satz vorkommen. Probier es doch aus!',
         )
 
 
