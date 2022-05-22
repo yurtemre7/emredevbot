@@ -39,6 +39,7 @@ def helping(cid, msg):
             "inversion": "Findet alle Inversionen zwischen zwei Listen.\nz.B.: /inversion 1,2,3 ODER /inversion 1,2,3 4,2,6",
             "prae": "Validiert ob eine Kodierung praefixfrei ist.\nz.B.: /prae 001 0011",
             "huff" : "Findet alle Huffmankodierungen.\nz.B.: /huff a,0.6 b,0.4",
+            "cycles" : "Wandelt Permutation in Zyklen um.\nz.B.: /cycles 1,2,3 2,1,3 ODER /cycles 2,1,3",
             "find_sm" : "Findet alle Stable Matchings. Du kannst einfach die Aufgabe kopieren und hier einfügen.\nz.B.: /find_sm A : Z < Y < X, X : A < B < C, B : Y < X < Z, Y : C < A < B, C : X < Z < Y, Z : B < C < A."
         }
         command = i[1]
