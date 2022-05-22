@@ -124,7 +124,7 @@ def displayPermutation(permutation):
     return "\n".join([" \t".join([f"{permutation[j][i]:^{max(map(len, [item[0] for item in permutation]))}}" for j in range(len(permutation))]) for i in [0,1]])
 
 def tschia_permutationOrdered(emredev, cid, str1):
-    permutation = list(zip(map(str, sorted(map(int, str1))) if all(i.isdigit() for i in str1.split(" ")) else sorted(str1.split(" ")), str1.split(" ")))
+    permutation = list(zip(map(str, sorted(map(int, str1.split(" ")))) if all(i.isdigit() for i in str1.split(" ")) else sorted(str1.split(" ")), str1.split(" ")))
     cycles = convertToCycles(permutation.copy())
     answer = "\n".join(["The permutation:",displayPermutation(permutation),f"contains {len(cycles)} cycles:",  ",\n".join(map(displayCycle, cycles)) + "." ])
     emredev.send_message(cid, answer)
