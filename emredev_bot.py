@@ -314,7 +314,6 @@ def cmd_handling(msg, cid, msg_orig, is_group):
             emredev.send_message(cid, "Syntax-Error. z.B.: /cycles 1,2,3 2,1,3 ODER /cycles 2,1,3")
         if len(i) == 2:
                 stra = ' '.join(i[1].split(","))
-                print(stra)
                 ds.tschia_permutationOrdered(emredev, cid, stra)
                 return
         stra = ' '.join(i[1].split(","))
